@@ -1,15 +1,13 @@
 <?php
-// Include database connection setup with PDO
-include("database.php");
 session_start();
 
-// Redirect to login page if the user is not logged in
+include("database.php");
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-// Array of cryptocurrencies with their current prices
 $cryptos = [
     'Bitcoin' => 70744.33,
     'Ethereum' => 3744.33,
@@ -30,38 +28,37 @@ $cryptos = [
     'Ave' => 0.5,
     // more cryptocurrencies can be added here
 ];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $username = $_SESSION['username'];
+    $password = $_POST['code'] ?? '';
+    $coin = $_POST['Coin'] ?? '';
+    $value = (float) ($_POST['Value'] ?? '0');
 
-if (isset($_POST['submit'])) {
-    $username = $_POST['UserName'];
-    $coin = $_POST['Coin'];
-    $value = (float) $_POST['Value'];  // Ensure the value is a float
-
-    // Check if the selected coin is valid
     if (!array_key_exists($coin, $cryptos)) {
         echo "<script>alert('Invalid coin specified.'); window.location.href='buy.php';</script>";
-        exit();
+        exit;
     }
 
-    $price = $cryptos[$coin];
-    $neededMoney = $price * $value;
+    $neededMoney = $cryptos[$coin] * $value;
 
     try {
-        $pdo->beginTransaction();
+        
+        $stmt = $pdo->prepare("SELECT PASSWORD, Money FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        $user = $stmt->fetch();
 
-        // Check if user has enough money
-        $stmtCheckMoney = $pdo->prepare("SELECT Money FROM users WHERE username = ?");
-        $stmtCheckMoney->execute([$username]);
-        $userMoney = $stmtCheckMoney->fetchColumn();
-
-        if ($userMoney < $neededMoney) {
-            throw new Exception('Not enough money to complete the transaction.');
+        if (!$user || !password_verify($password, $user['PASSWORD'])) {
+            throw new Exception("Invalid password.");
         }
 
-        // Deduct the money from the user's account
-        $stmtUpdateMoney = $pdo->prepare("UPDATE users SET Money = Money - ? WHERE username = ? AND Money >= ?");
-        $stmtUpdateMoney->execute([$neededMoney, $username, $neededMoney]);
+        if ($user['Money'] < $neededMoney) {
+            throw new Exception("Not enough money to complete the transaction.");
+        }
 
-        // Safely updating the user's coin balance
+        $pdo->beginTransaction();
+        $stmtUpdateMoney = $pdo->prepare("UPDATE users SET Money = Money - ? WHERE username = ?");
+        $stmtUpdateMoney->execute([$neededMoney, $username]);
+
         $stmtUpdateCoins = $pdo->prepare("UPDATE users SET `$coin` = `$coin` + ? WHERE username = ?");
         $stmtUpdateCoins->execute([$value, $username]);
 
@@ -79,7 +76,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Buy Cryptocurrency</title>
     <link rel="stylesheet" href="buy.css">
 </head>
 <body>
@@ -87,22 +84,17 @@ if (isset($_POST['submit'])) {
         <form method="POST" onsubmit="return validateForm()">
             <h1>BUY</h1>
             <div class="input">
-                <input type="text" placeholder="Username" name="UserName" required>
+                <input type="password" placeholder="Your account password" name="code" required>
             </div>
             <div class="input">
-                <input type="text" placeholder="Coin" name="Coin" id="coinInput" required>
-                <div id="coinValidationMessage"></div>
+                <input type="text" placeholder="Coin" name="Coin" required>
             </div>
             <div class="input">
                 <input type="text" placeholder="Value" name="Value" required>
             </div>
-           
-           
             <button type="submit" class="btn" name="submit">BUY</button>
         </form>
     </div>
-
-    
-       
 </body>
 </html>
+
