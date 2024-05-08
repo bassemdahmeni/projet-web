@@ -55,7 +55,11 @@
                         <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-c">
                     </div>
                 </fieldset>
-                <button type="submit" name="register">Register</button>
+                <div style="display: flex; flex-direction:row; >
+                   <button type="submit" name="register">Register</button>
+                   <button type="reset" name="register">Reset</button>
+                </div>
+                
             </form>
         </div>
     </div>

@@ -83,18 +83,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     <div class="wrapp">
         <form method="POST" onsubmit="return validateForm()">
             <h1>BUY</h1>
-            <div class="input">
-                <input type="password" placeholder="Your account password" name="code" required>
-            </div>
-            <div class="input">
-                <input type="text" placeholder="Coin" name="Coin" required>
-            </div>
-            <div class="input">
-                <input type="text" placeholder="Value" name="Value" required>
-            </div>
+            
+           <div class="input">
+               <input type="text" placeholder="Coin" name="Coin" id="coinInput" required>
+           </div>
+           <div class="input">
+               <input type="text" placeholder="Value" name="Quantity" id="valueInput" required>
+           </div>
+           <div class="input">
+            <input type="password" placeholder="Your account password" name="code" id="passwordInput" required>
+           </div>
             <button type="submit" class="btn" name="submit">BUY</button>
         </form>
     </div>
+    <script>
+      function validateForm() {
+         let coin = document.getElementById('coinInput').value.trim();
+         let quantity = document.getElementById('valueInput').value.trim();
+         let password = document.getElementById('passwordInput').value.trim();
+     
+         let valid = true;
+         let validationMessage = "";
+     
+         let test = ["Bitcoin", "Ethereum", "BigG", "BNB", "Solana", "Dogcoin", "Cardano", "Ripple", "Polkadot", "Chainlink", "Binance", "Litecoin", "Stellar", "Cosmos", "Monero", "Zcash", "Ave"];
+     
+         // Validate Coin
+         if (coin === "") {
+             validationMessage = "Please enter a coin.";
+             valid = false;
+         } else if (!test.includes(coin)) {
+             validationMessage = "Coin not recognized. Please enter a valid coin.";
+             valid = false;
+         }
+     
+         // Validate Quantity
+         if (quantity === "") {
+             validationMessage += "\nPlease enter a quantity.";
+             valid = false;
+         } else if (isNaN(quantity) || parseFloat(quantity) <= 0) {
+             validationMessage += "\nQuantity must be a positive number.";
+             valid = false;
+         }
+     
+         // Validate Password
+         if (password === "") {
+             validationMessage += "\nPlease enter your account password.";
+             valid = false;
+         }
+     
+         if (!valid) {
+             alert(validationMessage);
+         }
+     
+         return valid;
+     }
+     
+</script>
+
 </body>
 </html>
-

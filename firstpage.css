@@ -1,0 +1,96 @@
+body, html {
+    height: 100%;
+    margin: 0; 
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif; 
+  }
+  
+  
+  .content {
+    background-color: black; 
+    color: white; 
+    padding: 40px; 
+    border-radius: 15px; 
+    text-align: center; 
+    max-width: 600px; 
+    width: 90%; 
+    box-sizing: border-box; 
+    margin: auto;
+    font-family: "Roboto", sans-serif; 
+    position: relative;
+    z-index: 1; 
+    opacity: 0; 
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out; 
+    transform: translateY(-50px);
+  }
+  .content.show {
+    opacity: 1;
+    transform: translateY(0); 
+  }
+  
+  
+  .content p {
+    font-size: 1rem; 
+    line-height: 1.6; 
+    margin-bottom: 20px; 
+    font-family: "Roboto", sans-serif; 
+  }
+  
+  
+  .ay button {
+    background-color: #fca311; 
+    color: white; 
+    border: 1px solid #fff; 
+    padding: 10px 20px; 
+    margin: 10px 0; 
+    cursor: pointer; 
+    font-size: 1rem; 
+    transition: background-color 0.3s, color 0.3s; 
+    font-family: "Roboto", sans-serif; 
+  
+    display: inline-block; /*nodhmnou toul w 3aredh 9ad les boexs klEnsures that width and height are respected */
+    width: 200px; 
+    height: 50px; 
+    line-height: 30px; 
+  
+    text-align: center; 
+    vertical-align: middle; 
+  
+    margin-right: 10px; 
+    box-sizing: border-box; /* border w padding nafs chy */
+  }
+  
+  .ay button:hover {
+    background-color: #fff; 
+    color: black; 
+    border-color: #444; 
+  }
+  
+  
+  
+  .logo {
+    display: block; 
+    margin: 0 auto 20px; 
+    max-width: 200px; 
+    height: auto; 
+  }
+  
+  #myVideo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1000;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .hidden{
+    
+      display: none; 
+  
+  }

@@ -24,3 +24,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+document.getElementById('resetButton').addEventListener('click', function() {
+    document.getElementById('username').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('confirm_password').value = '';
+});

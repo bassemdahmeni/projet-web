@@ -7,10 +7,21 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
+
+// Prices for different types of coins
+$price = [
+    "Bitcoin" => 70744.33, "Ethereum" => 3744.33, "BigG" => 10.69, 
+    "BNB" => 134.69, "Solana" => 434.69, "Dogcoin" => 13.69, 
+    "Cardano" => 0.55, "Ripple" => 77, "Polkadot" => 800, 
+    "Chainlink" => 4, "Binance" => 550, "Litecoin" => 0.77, 
+    "Stellar" => 0.2, "Cosmos" => 0.55, "Monero" => 77, 
+    "Zcash" => 330, "Ave" => 0.5
+];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     try {
         $host = 'localhost';  
-        $db_name="clientsbuy";
+        $db_name = "clientsbuy";
         $dbUsername = 'root';
         $dbPassword = '';
         $pdo = new PDO("mysql:host=$host;dbname=$db_name", $dbUsername, $dbPassword);
@@ -23,6 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         if (empty($username) || empty($Coin) || $Value <= 0 || empty($password)) {
             echo '<script>alert("Please fill out all fields and ensure Value is positive.");</script>';
+        } elseif (!array_key_exists($Coin, $price)) {
+            echo '<script>alert("Coin type not recognized.");</script>';
         } else {
             $stmt = $pdo->prepare("SELECT PASSWORD, $Coin FROM users WHERE username = ?");
             $stmt->execute([$username]);
@@ -31,15 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             // Check if the user exists and the password is correct
             if (password_verify($password, $user['PASSWORD'])) {
                 if ($user[$Coin] >= $Value) {
-                    $price = ["Bitcoin" => 70744.33, "Ethereum" => 3744.33, "BigG" => 10.69, "BNB" => 134.69, "Solana" => 434.69, "Dogcoin" => 13.69, "Cardano" => 0.55, "Ripple" => 77, "Polkadot" => 800, "Chainlink" => 4, "Binance" => 550, "Litecoin" => 0.77, "Stellar" => 0.2, "Cosmos" => 0.55, "Monero" => 77, "Zcash" => 330, "Ave" => 0.5];
-                    
                     $Values = $Value * $price[$Coin];
 
                     $request = "UPDATE users SET Money = Money + ? WHERE username = ?";
                     $stmt = $pdo->prepare($request);
                     $stmt->execute([$Values, $username]);
 
-                    $request = "UPDATE users SET $Coin = $Coin - ? WHERE username = ?"; // Subtract Value
+                    $request = "UPDATE users SET $Coin = $Coin - ? WHERE username = ?";
                     $stmt = $pdo->prepare($request);
                     $stmt->execute([$Value, $username]);
 
@@ -86,6 +97,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             <button type="submit" class="btn" name="submit">SELL</button>
         </form>
     </div>
+    <script>
+function validateForm() {
+    let coin = document.getElementById('coinInput').value.trim();
+    let quantity = document.querySelector('input[name="Quantity"]').value.trim();
+    let password = document.querySelector('input[name="code"]').value.trim();
+
+    let valid = true;
+    let validationMessage = "";
+
+    let test=["Bitcoin", "Ethereum", "BigG", "BNB", "Solana", "Dogcoin", "Cardano", "Ripple", "Polkadot", "Chainlink", "Binance", "Litecoin", "Stellar", "Cosmos", "Monero", "Zcash", "Ave"]
+
+
+    // Validate Coin
+    if (coin === "") {
+        validationMessage = "Please enter a coin.";
+        valid = false;
+    } else if (!test.includes(coin)) {
+        // Example: Only allow specific coin names (you can modify this list)
+        validationMessage = "Coin not recognized. Please enter a valid coin.";
+        valid = false;
+    }
+
+    // Validate Quantity
+    if (quantity === "") {
+        validationMessage += "\nPlease enter a quantity.";
+        valid = false;
+    } else if (isNaN(quantity) || parseFloat(quantity) <= 0) {
+        validationMessage += "\nQuantity must be a positive number.";
+        valid = false;
+    }
+
+    // Validate Password
+    if (password === "") {
+        validationMessage += "\nPlease enter your account password.";
+        valid = false;
+    }
+
+    if (!valid) {
+        alert(validationMessage);
+    }
+
+    return valid;
+}
+</script>
+
+    
+       
+</body>
+</html>
 
     
        

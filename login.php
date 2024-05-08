@@ -2,7 +2,7 @@
 session_start();  // Start the session at the very top
 
 $host = 'localhost';
-$db_name="clientsbuy";
+$db_name = "clientsbuy";
 $dbUser = 'root';
 $dbPass = '';
 
@@ -38,12 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="login.css" rel="stylesheet">
+    
 </head>
+
 <body>
     <div class="wrapp">
         <form method="post">
@@ -63,5 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
+    <script src="login.js"></script>
 </body>
+
+
 </html>

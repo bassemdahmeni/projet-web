@@ -99,6 +99,7 @@
     display: flex;
     justify-content: space-between; /* Adjusted for even spacing between coin and value */
     align-items: center; /* Centers items vertically */
+    margin-left: 10px;
 }
 
 .title {
@@ -125,8 +126,7 @@
 }
 
 .list {
-    list-style-type: none; /* Removes default list styling */
-    
+    list-style-type: none;
     padding: 0; /* Removes default padding */
     display: flex;
     flex-direction: column;
@@ -149,7 +149,7 @@ img {
 
 .Container {
     display: inline-block;
-    
+   
     vertical-align: top;
     box-sizing: border-box; /* Include padding and border in the element's size */
     border: solid black; /* Example border */
