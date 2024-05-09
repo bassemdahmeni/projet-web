@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to update rates and prices randomly
     function updateRates() {
-        let totalValue = 0; // Reset total value at each update
+        var totalValue = 0; // Reset total value at each update
 
         cryptos = cryptos.map(crypto => {
             // Generates a new rate between -10 and 10
@@ -117,7 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update the total crypto money display with the accumulated value
         document.getElementById('cryptoTotal').innerText = `${totalValue.toFixed(2)} $`;
+        console.log($totalValue)
         document.getElementById('TotalMoney').innerText = `${(totalValue+realMoney).toFixed(2)} $`;
+        
+        
     }
 
     // Set the interval for updating rates

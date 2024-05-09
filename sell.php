@@ -144,10 +144,3 @@ function validateForm() {
 
     
        
-</body>
-</html>
-
-    
-       
-</body>
-</html>

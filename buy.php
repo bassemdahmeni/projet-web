@@ -61,14 +61,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         $stmtUpdateCoins = $pdo->prepare("UPDATE users SET `$coin` = `$coin` + ? WHERE username = ?");
         $stmtUpdateCoins->execute([$value, $username]);
-
+         
         $pdo->commit();
         echo "<script>alert('Transaction completed successfully.'); window.location.href='buy.php';</script>";
-    } catch (Exception $e) {
+        header("Location: page.html");
+    }
+     
+     catch (Exception $e) {
         $pdo->rollBack();
         echo "<script>alert('Transaction failed: " . addslashes($e->getMessage()) . "'); window.location.href='buy.php';</script>";
     }
+
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -88,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                <input type="text" placeholder="Coin" name="Coin" id="coinInput" required>
            </div>
            <div class="input">
-               <input type="text" placeholder="Value" name="Quantity" id="valueInput" required>
+               <input type="text" placeholder="Value" name="Value" id="valueInput" required>
            </div>
            <div class="input">
             <input type="password" placeholder="Your account password" name="code" id="passwordInput" required>

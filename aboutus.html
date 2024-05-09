@@ -14,6 +14,7 @@ href="aboutus.css">
 
 
 <section class="about">
+
    <h1><a href="#team" style="text-decoration: none; color: #fca311;">About Us</a></h1>
 <p style="font-weight: bold">
 Never too late to be a Big G...
@@ -34,6 +35,14 @@ Never too late to be a Big G...
 </div>
 </div>
 </section>
+<section class="team">
+   <h2>This is the motivation speech for today:</h2>
+   <audio id="bgAudio">
+     <source src="real.mp3" type="audio/mpeg">
+     Your browser does not support the audio element.
+   </audio>
+   <button id="playButton" class="play-button" onclick="togglePlayPause()">Play Audio</button>
+ </section>
 
 <section class="team">
 <h1>Meet Our Team</h1>
@@ -44,8 +53,7 @@ Never too late to be a Big G...
 <div class="card" id="team">
 <div class="card-img">
 <img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20230824122630/
-business-office-business-woman-professional.jpg" alt="User 1">
+"dahma.png" alt="User 1">
 </div>
 <div class="card-info">
 <h2 class="card-name">Bassem</h2>
@@ -60,8 +68,7 @@ business-office-business-woman-professional.jpg" alt="User 1">
 <div class="card">
 <div class="card-img">
 <img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20230822183347/
-man-portrait-businessman-male.jpg" alt="User 2">
+"adem.jpg" alt="User 2">
 </div>
 <div class="card-info">
 <h2 class="card-name">Adem</h2>
@@ -76,8 +83,7 @@ man-portrait-businessman-male.jpg" alt="User 2">
 <div class="card">
 <div class="card-img">
 <img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20230824122630/
-business-office-business-woman-professional.jpg" alt="User 3">
+"chiheb.jpg" alt="User 3">
 </div>
 <div class="card-info">
 <h2 class="card-name">Chiheb</h2>
@@ -88,8 +94,33 @@ business-office-business-woman-professional.jpg" alt="User 3">
 </div>
 </div>
 </section>
+<footer>
+   <div class="footer">
+       <div class="row">
+           <a href="#"><i class="fa fa-facebook"><img src="facebook.png"></i></a>
+           <a href="#"><i class="fa fa-instagram"><img src="instagram.png"></i></a>
+           <a href="#"><i class="fa fa-youtube"><img src="play.png"></i></a>
+           <a href="#"><i class="fa fa-twitter"><img src="twitter.png"></i></a>
+       </div>
 
+       <div class="row">
+           <ul>
+               <li><a href="#">Contact us</a></li>
+               <li><a href="#">Our Services</a></li>
+               <li><a href="#">Privacy Policy</a></li>
+               <li><a href="#">Terms & Conditions</a></li>
+               <li><a href="#">Career</a></li>
+           </ul>
+       </div>
 
+       <div class="row">
+           <a href="mailto:exemple@domaine.com">NEVER TOO LATE TYO BECOME THE REAL G</a>
+       </div>
+   </div>
+   
+</footer>
+
+<script src="aboutus.js"></script>
 </body>
 
 </html>

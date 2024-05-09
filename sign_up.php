@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="sign.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="wrapp">
         <div class="inner">
@@ -24,8 +26,8 @@
                 <fieldset>
                     <legend>Your Gender</legend>
                     <div class="form-choix">
-                        <input type ="radio" name ="sexe" id="Homme" value="Men"> Men
-                        <input type ="radio" name ="sexe" id="Femme" value="Women"> Women
+                        <input type="radio" name="sexe" id="Homme" value="Men"> Men
+                        <input type="radio" name="sexe" id="Femme" value="Women"> Women
                     </div>
                 </fieldset>
                 <fieldset>
@@ -55,33 +57,37 @@
                         <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-c">
                     </div>
                 </fieldset>
-                <div style="display: flex; flex-direction:row; >
+                <div style="display:flex; flex-direction:row;">
                    <button type="submit" name="register">Register</button>
-                   <button type="reset" name="register">Reset</button>
+                   <button type="reset" name="reset">Reset</button>
+
                 </div>
                 
+
+
             </form>
         </div>
     </div>
     <script src="sign up.js"></script>
 </body>
+
 </html>
 <?php
 include("database.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
     try {
-        $host = 'localhost';  
-        $db_name="clientsbuy";
-        $db_user="root";
-        $db_pass="";
-        
+        $host = 'localhost';
+        $db_name = "clientsbuy";
+        $db_user = "root";
+        $db_pass = "";
+
         $pdo = new PDO("mysql:host=$host;dbname=$db_name", $db_user,  $db_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $firstName = $_POST['firstName'] ?? '';
         $secondName = $_POST['secondName'] ?? '';
-        $gender = $_POST['sexe'] ?? ''; 
-        $city = $_POST['ville'] ?? ''; 
+        $gender = $_POST['sexe'] ?? '';
+        $city = $_POST['ville'] ?? '';
         $username = $_POST['username'] ?? '';
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -115,6 +121,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                     exit();
                 }
             }
+        }
+        // Send an email to the email address entered in the registration form
+        $to = $email; // Email address from form input
+        $subject = 'Welcome to Our Service!';
+        $message = "Hello $firstName,\n\nThank you for registering with us. We are glad to have you on board!\n\nBest Regards,\nThe Team";
+        $headers = 'From: noreply@yourdomain.com' . "\r\n" .
+            'Reply-To: support@yourdomain.com' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+
+        // Using mail() function to send the email
+        if (mail($to, $subject, $message, $headers)) {
+            echo '<script>alert("Confirmation email sent successfully to ' . $email . '");</script>';
+        } else {
+            echo '<script>alert("Failed to send confirmation email.");</script>';
         }
     } catch (PDOException $e) {
         die("Database connection failed: " . $e->getMessage());
