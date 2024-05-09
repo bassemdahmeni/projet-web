@@ -40,8 +40,8 @@ if (!isset($_SESSION['username'])) {
 <body>
     <navbar class="nav">
         <div class="nav1">
-            <div class="LOGO">
-                <h3>LOGO</h3>
+        <div class="LOGO">
+                LOGO
 
             </div>
 
@@ -62,7 +62,7 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <div class="elements">
                     <img src="about.png">
-                    <a>Log Out</a>
+                    <a href="firstpage.html">Log Out</a>
                 </div>
 
             </div>
