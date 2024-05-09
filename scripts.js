@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         populateTable(cryptos ,realMoney);
 
         // Update the total crypto money display with the accumulated value
-        document.getElementById('cryptoTotal').innerText = `${totalValue.toFixed(2)} $`;
+      
         console.log($totalValue)
         document.getElementById('TotalMoney').innerText = `${(totalValue+realMoney).toFixed(2)} $`;
         

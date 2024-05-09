@@ -133,6 +133,15 @@ tbody tr:nth-child(odd) {
     color: #f0f8ff;
 
 }
+.LOGO{
+    margin-left: 20px;
+    
+   
+}
+.LOGO img {
+    width: 40px;
+    margin-top: 6px;
+}
 #search{
     width: 300px;
 }
